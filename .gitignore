@@ -1,0 +1,28 @@
+# Student artifacts: never commit recordings or submissions
+recordings/
+submission.zip
+submissions/
+
+# Data: the notebook downloads the CDC/Kaggle data into the user cache; keep copies out of the repo
+*.csv
+*.csv.zip
+.kagglehub/
+
+# Jupyter / Python
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Autograder reports and scratch outputs
+*.autograde.json
+instructor/derived_student.ipynb
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+
+./instructor
