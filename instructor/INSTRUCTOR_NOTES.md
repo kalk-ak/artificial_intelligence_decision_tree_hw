@@ -9,13 +9,17 @@ These notes are for course staff only; do not distribute the `instructor/` folde
 |---|---|---|
 | Scope | implement `train` (ID3) for the mushroom data, then "use a library" | an 8-part course: entropy → information gain → ID3 → honest metrics on real data → failure modes → bagging, random forests, AdaBoost → scikit-learn / gradient boosting → clinical decision |
 | Data | UCI mushrooms, 8,124 rows, shipped as a file | CDC BRFSS 2015 diabetes indicators, 253,680 rows × 21 features, downloaded from Kaggle by the notebook (`kagglehub`, public, no account needed) and held in memory |
-| Written explanations | none / free text | 20 **voice answers** recorded by a widget inside the notebook; each question asks for the student's own numbers |
+| Written explanations | none / free text | 20 **voice answers** (+1 optional) recorded by a widget inside the notebook; prompts ask for general understanding in the student's own words, a few for a rough number from their own output |
 | Pedagogy | one task | 8 deliberate problems the student must diagnose (crash on 0·log 0, identifier wins gain, `None` for unseen values, 86 % accuracy paradox, fragmentation, instability, correlated bagged trees, base-rate collapse) |
 | Student-written code | 1 function | 32 functions in 19 solution cells, each with visible asserts (21 test cells, 100 autograded points) |
-| Grading | 100 pts, 1-page rubric | 200 pts; `TA_GRADING_RUBRIC.md`; `autograde.py`; integrity manifest for recordings |
-| Length | ~5–8 h | ~17 h (see the time table in Part 0); can be split into two milestones, see §7 |
+| Grading | 100 pts, 1-page rubric | 250 pts available, graded out of 200 (50 extra credit); `TA_GRADING_RUBRIC.md`; `autograde.py`; integrity manifest for recordings |
+| Length | ~5–8 h | ~17 h plus an optional 2–3 h extra-credit part (see the time table in Part 0); can be split into two milestones, see §7 |
 
 ## 2. Files
+
+Notebook structure: Parts 0–7 are the course, Part 8 is optional extra credit (EC1–EC4 code tasks + voice question Q20), Part 9 is the
+submission checklist. Extra-credit stubs read `return None` instead of raising, so an unattempted task never breaks *Restart & Run All*;
+their check cells print *skipped* and the autograder reports `SKIPPED`.
 
 ```
 project_4_decision_trees.ipynb        student notebook (distribute this + requirements.txt)
@@ -89,7 +93,7 @@ Cells tagged `solution-only` are dropped from the student version if you want in
 
 ## 6. Expected results and runtime (solution notebook, 16-core laptop, Python 3.12)
 
-Whole notebook: **≈ 4 minutes** for *Restart & Run All*. Heavy cells: bagging 25 trees ≈ 85 s, random forest ≈ 30 s,
+Whole notebook: **≈ 5 minutes** for *Restart & Run All* (about 4 without the extra-credit cells). Heavy cells: bagging 25 trees ≈ 85 s, random forest ≈ 30 s,
 `min_samples_leaf` sweep ≈ 27 s, learning curve ≈ 20 s, categorical full tree ≈ 10 s, AdaBoost ≈ 9 s, Part 7 models ≈ 7 s (XGBoost adds ≈ 15 s).
 Students on slower machines should expect 8–10 minutes.
 

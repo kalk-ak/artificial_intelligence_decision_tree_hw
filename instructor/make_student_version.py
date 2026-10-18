@@ -17,6 +17,7 @@ Rules (nbgrader-style):
         raise NotImplementedError()
     at the indentation of the BEGIN marker.
   * Lines between `### BEGIN HIDDEN TESTS` and `### END HIDDEN TESTS` are removed.
+  * Cells tagged `extra-credit` get `return None` instead of the raise, so an unattempted bonus never breaks Run All.
   * Cells tagged `solution-only` are dropped.
   * All outputs and execution counts are cleared.
 Edit the SOLUTION notebook in Jupyter, re-run this script, and both files stay in sync.
@@ -30,7 +31,7 @@ import nbformat
 SOLUTION_RE = re.compile(r"^(\s*)### BEGIN SOLUTION\s*$")
 
 
-def strip_solution(src: str) -> str:
+def strip_solution(src: str, optional: bool = False) -> str:
     out, in_solution, in_hidden = [], False, False
     for line in src.split("\n"):
         s = line.strip()
@@ -45,8 +46,12 @@ def strip_solution(src: str) -> str:
         m = SOLUTION_RE.match(line)
         if m:
             in_solution = True
-            out.append(f"{m.group(1)}# YOUR CODE HERE")
-            out.append(f"{m.group(1)}raise NotImplementedError()")
+            if optional:   # extra-credit cells: skipping must not break Restart & Run All
+                out.append(f"{m.group(1)}# YOUR CODE HERE (optional extra credit; leave as is to skip)")
+                out.append(f"{m.group(1)}return None")
+            else:
+                out.append(f"{m.group(1)}# YOUR CODE HERE")
+                out.append(f"{m.group(1)}raise NotImplementedError()")
             continue
         if s.startswith("### END SOLUTION"):
             in_solution = False
@@ -63,7 +68,7 @@ def student_version(master):
         if "solution-only" in cell.metadata.get("tags", []):
             continue
         if cell.cell_type == "code":
-            cell.source = strip_solution(cell.source)
+            cell.source = strip_solution(cell.source, optional="extra-credit" in cell.metadata.get("tags", []))
             cell.outputs = []
             cell.execution_count = None
         kept.append(cell)

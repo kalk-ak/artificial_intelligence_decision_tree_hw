@@ -37,6 +37,7 @@ POINTS = {
     "bagging": 8, "adaboost": 9,
     "sk_tree": 3, "models": 4, "undersample": 2, "threshold": 3,
 }
+EXTRA_POINTS = {"ec_fast_threshold": 10, "ec_oob": 10, "ec_prune": 10, "ec_cost": 10}   # + Q20 voice (10) graded by TAs
 
 
 def run(nb_path: pathlib.Path, timeout: int):
@@ -55,9 +56,13 @@ def score(nb):
         failed = [o for o in cell.get("outputs", []) if o.get("output_type") == "error"]
         tags = cell.metadata.get("tags", [])
         names = [t.split(":", 1)[1] for t in tags if t.startswith("test:")]
+        stdout = "".join("".join(o.get("text", "")) for o in cell.get("outputs", []) if o.get("output_type") == "stream")
         for name in names:
-            results[name] = {"passed": not failed, "points": 0 if failed else POINTS.get(name, 0), "max": POINTS.get(name, 0),
-                             "error": f"{failed[0].get('ename')}: {str(failed[0].get('evalue'))[:200]}" if failed else ""}
+            table = EXTRA_POINTS if name in EXTRA_POINTS else POINTS
+            passed = not failed and (name not in EXTRA_POINTS or "checks passed" in stdout)
+            results[name] = {"passed": passed, "points": table.get(name, 0) if passed else 0, "max": table.get(name, 0),
+                             "extra": name in EXTRA_POINTS,
+                             "error": f"{failed[0].get('ename')}: {str(failed[0].get('evalue'))[:200]}" if failed else ("" if passed else "not attempted")}
         if failed and not names:
             errors.append({"cell": i, "head": cell.source.strip().splitlines()[0][:80] if cell.source.strip() else "",
                            "error": f"{failed[0].get('ename')}: {str(failed[0].get('evalue'))[:200]}"})
@@ -82,12 +87,14 @@ def main():
         path = candidates[0]
     nb = run(path, args.timeout)
     results, errors = score(nb)
-    total = sum(r["points"] for r in results.values()); maximum = sum(POINTS.values())
-    print(f"\n=== {path.name}: {total} / {maximum} autograded points ===")
-    for name, pts in POINTS.items():
-        r = results.get(name)
-        status = "PASS" if r and r["passed"] else ("FAIL" if r else "MISSING CELL")
-        print(f"  {status:12s} {name:28s} {r['points'] if r else 0:3d}/{pts:<3d} {r['error'] if r else ''}")
+    total = sum(r["points"] for r in results.values() if not r.get("extra")); maximum = sum(POINTS.values())
+    extra = sum(r["points"] for r in results.values() if r.get("extra"))
+    print(f"\n=== {path.name}: {total} / {maximum} autograded base points, +{extra} / {sum(EXTRA_POINTS.values())} autograded extra credit ===")
+    for table in (POINTS, EXTRA_POINTS):
+        for name, pts in table.items():
+            r = results.get(name)
+            status = "PASS" if r and r["passed"] else ("SKIPPED" if r and r.get("error") == "not attempted" else ("FAIL" if r else "MISSING CELL"))
+            print(f"  {status:12s} {name:28s} {r['points'] if r else 0:3d}/{pts:<3d} {r['error'] if r else ''}")
     if errors:
         print(f"\n{len(errors)} non-test cells raised errors (these cost process points and may cascade):")
         for e in errors[:15]:
@@ -102,7 +109,7 @@ def main():
     else:
         print("\nrecordings/manifest.json NOT found next to the notebook")
     if args.json:
-        pathlib.Path(args.json).write_text(json.dumps({"total": total, "max": maximum, "tests": results, "errors": errors}, indent=2))
+        pathlib.Path(args.json).write_text(json.dumps({"total": total, "max": maximum, "extra": extra, "tests": results, "errors": errors}, indent=2))
     if tmp:
         shutil.rmtree(tmp, ignore_errors=True)
 

@@ -18,8 +18,12 @@ October 2026.
 
 > **Why spoken answers?** Every explanation in this project is a **voice recording** made inside the notebook instead of a written
 > paragraph. The format was introduced to mitigate the use of AI tools to generate the entire homework in one shot: each spoken
-> prompt asks the student to explain _their own_ numbers and _why their own code_ broke, which is hard to outsource and easy for a TA
-> to check against the notebook. Details in [Voice answers](#voice-answers).
+> prompt asks the student to explain, in their own words, what they built and *why their own code* broke, which is hard to outsource
+> and easy for a TA to check against the notebook.
+>
+> **Using AI to learn is encouraged.** The notebook says so on its first page: students may use any AI tool to understand a concept,
+> an error message or a question. What must be their own is the code they can explain and the recorded explanation itself.
+> Details in [Voice answers](#voice-answers).
 
 ## What students learn
 
@@ -46,7 +50,8 @@ October 2026.
 | 5    | The limits of a single tree              | `entropy_np`, `information_gain_np`, `best_threshold`, `should_stop`, `best_split`, `grow_tree`   | BMI fragmented into one branch per value; two halves give different trees | 3 h   |
 | 6    | Ensembles                                | `bootstrap_indices`, `fit_bagging`, `predict_proba_bagging`, `predict_bagging`, `fit_adaboost`    | 17 of 25 bagged trees share the same root                                 | 3 h   |
 | 7    | Industry tools and the clinical decision | scikit-learn tree, forest, gradient boosting, `undersample_balanced`, `threshold_for_sensitivity` | precision collapses at real prevalence after balanced training            | 2.5 h |
-| 8    | Submit                                   | `lint_notebook_functions()`, `recording_status()`, `build_submission()`                           | —                                                                         | 0.3 h |
+| 8    | Extra credit (optional)                  | `best_threshold_fast`, out-of-bag error, `prune_tree`, `threshold_for_cost`                       | —                                                                         | 2–3 h |
+| 9    | Submit                                   | `lint_notebook_functions()`, `recording_status()`, `build_submission()`                           | —                                                                         | 0.3 h |
 
 Each part reuses the functions of the previous one: the `entropy` of Part 1 sits inside the `information_gain` of Part 2, inside the
 `id3` of Part 3, which is ported to arrays in Part 5 and wrapped in ensembles in Part 6. Every student-written function has visible
@@ -54,7 +59,8 @@ self-check `assert` cells; 21 of them are autograded.
 
 ## Voice answers
 
-Twenty questions (Q00–Q19, 20 to 180 seconds each) are answered out loud. A recorder built into the notebook (an
+Twenty required questions (Q00–Q19, 20 to 180 seconds each) and one optional extra-credit question (Q20) are answered out loud.
+The prompts ask for general understanding in the student's own words; a few ask for a rough number from the student's own output. A recorder built into the notebook (an
 [anywidget](https://anywidget.dev) around the browser's `MediaRecorder`) saves each take to `recordings/<QID>.webm` together with its
 length, a UTC timestamp and a SHA-256 fingerprint in `recordings/manifest.json`. `build_submission()` verifies the set and writes
 `submission.zip` (notebook + recordings + a `review.html` page with inline players for TAs). Q00 is a mic check in which the student
@@ -76,15 +82,15 @@ jupyter lab project_4_decision_trees.ipynb
 - Open the notebook in a **browser** (Chrome, Edge, Firefox or Safari) at the default `http://localhost` address; the microphone API is
   not available in some editor-embedded notebook views.
 - Part 0 downloads the data from Kaggle through `kagglehub` (6 MB, public, no Kaggle account needed) and keeps it in memory.
-- Work through the parts in order; expect about 17 hours in total. _Restart Kernel and Run All_ should finish in roughly 4 to 10 minutes
-  depending on your laptop; the slowest cell grows 25 bagged trees.
-- Finish with Part 8: `lint_notebook_functions()`, `recording_status()`, `build_submission()`, then upload `submission.zip` to Gradescope.
+- Work through the parts in order; expect about 17 hours in total, plus 2 to 3 hours if you attempt the extra credit. *Restart Kernel and
+  Run All* should finish in roughly 5 to 10 minutes depending on your laptop; the slowest cell grows 25 bagged trees.
+- Finish with Part 9: `lint_notebook_functions()`, `recording_status()`, `build_submission()`, then upload `submission.zip` to Gradescope.
 
 ## For instructors and TAs
 
 | File                                                 | Purpose                                                                                                                      |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `project_4_decision_trees.ipynb`                     | the assignment to distribute (with `requirements.txt`)                                                                       |
+| `project_4_decision_trees.ipynb`                     | the assignment (222 cells, Parts 0–9, 20 voice questions + 1 optional, 8 deliberate problems, 50 points of extra credit)     |
 | `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 20 voice questions, code tests, penalties, workflow, reference values |
 | `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags)                            |
 | `instructor/make_student_version.py`                 | regenerates the student notebook from the solution (strips solutions and outputs)                                            |
@@ -92,8 +98,10 @@ jupyter lab project_4_decision_trees.ipynb
 | `instructor/INSTRUCTOR_NOTES.md`                     | design rationale, recorder internals, data notes, expected results, grading load, variations                                 |
 | `archive/`                                           | the previous Project 4 notebook and rubric, kept for reference                                                               |
 
-Grading: 110 points code (100 autograded + 10 reviewed), 70 points voice answers, 20 points process. The solution notebook scores
-100/100 on the autograder and runs end to end in about four minutes. Before the first release, open the student notebook in a browser,
+Grading: **250 points available, graded out of 200.** The 200 base points are 110 for code (100 autograded + 10 reviewed),
+70 for voice answers and 20 for process; the 50 extra-credit points (four autograded coding tasks and one voice question in Part 8)
+are a buffer that can make up for lost points or lift a score above 100%. The solution notebook scores 100/100 base and 40/40
+extra credit on the autograder and runs end to end in about five minutes. Before the first release, open the student notebook in a browser,
 run the Q00 cell and record a few seconds to confirm the microphone widget works on your setup.
 
 Edit the solution notebook, not the student one, and regenerate:
@@ -114,7 +122,7 @@ is self-reported survey data; the notebook presents the task as screening and ri
 
 ```
 .
-├── project_4_decision_trees.ipynb      student notebook (199 cells, 8 parts, 20 voice questions)
+├── project_4_decision_trees.ipynb      student notebook (222 cells, Parts 0-9, 20 voice questions + 1 optional)
 ├── requirements.txt
 ├── TA_GRADING_RUBRIC.md                rubric (Markdown) and TA_GRADING_RUBRIC.pdf
 ├── README.md · CONTRIBUTING.md · LICENSE · .gitignore

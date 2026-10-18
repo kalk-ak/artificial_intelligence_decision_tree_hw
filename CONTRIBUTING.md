@@ -59,6 +59,9 @@ Conventions inside the solution notebook:
   `# YOUR CODE HERE` / `raise NotImplementedError()`. Keep the markers on their own lines.
 - Keep cell tags: `test` + `test:<name>` on self-check cells (the autograder scores them), `voice` on recorder cells, `infra` on
   infrastructure cells. Add `solution-only` to a cell that must not reach students.
+- Extra-credit solution cells carry the tag `extra-credit`: the generator replaces their solution with `return None` instead of a
+  `raise`, so that students who skip the task still pass *Restart & Run All*. Their check cells must print `checks passed` on success;
+  the autograder looks for that text.
 - Student-facing functions: docstrings on every function, about 20 lines or fewer, one job per function (the notebook's own
   `lint_notebook_functions()` enforces this for students, so the staff code should pass it too).
 - If you change the data split, the dev-sample seed or an experiment, update the **reference values** in the rubric (section 7) from a
