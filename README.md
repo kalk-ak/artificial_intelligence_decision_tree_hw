@@ -4,15 +4,21 @@
 ![Python 3.11 | 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
 ![Jupyter](https://img.shields.io/badge/notebook-JupyterLab%204-orange)
 
-A complete, self-contained course on decision trees packaged as one Jupyter notebook, written for **EN.601.464 Artificial
-Intelligence** at Johns Hopkins University (instructor [Professor's name]; teaching assistants Kaleb Aklilu and [Second TA's name]). Students start with nothing but `math.log2` and finish with hand-built random forests
-and boosting, scikit-learn and gradient boosting, and a defensible recommendation about deploying a **diabetes screening model**
-built from 253,680 CDC survey respondents. The notebook is released under the MIT License so that other courses can reproduce,
-adapt and extend it.
+Who worked on this
+Musab Hadque <mhaque5@jhu.edu>, instructor of record for EN.601.464: course content, the lecture material
+(the lecture dataset and tree that the self-checks reproduce) and approval of the design.
+
+Matthew Brownrigg <mbrownrigg@jhu.edu>, teaching assistant: assignment design, review, testing and grading.
+
+Kaleb Aklilu <kaklilu1@jh.edu>, teaching assistant: assignment design, requirements, grading policy, review.
+
+Claude Code: drafted the refactored notebook, the
+voice-recorder widget, the autograder and the TA rubric under the TAs' direction,
+October 2026.
 
 > **Why spoken answers?** Every explanation in this project is a **voice recording** made inside the notebook instead of a written
 > paragraph. The format was introduced to mitigate the use of AI tools to generate the entire homework in one shot: each spoken
-> prompt asks the student to explain *their own* numbers and *why their own code* broke, which is hard to outsource and easy for a TA
+> prompt asks the student to explain _their own_ numbers and _why their own code_ broke, which is hard to outsource and easy for a TA
 > to check against the notebook. Details in [Voice answers](#voice-answers).
 
 ## What students learn
@@ -30,17 +36,17 @@ adapt and extend it.
 
 ## How the project is organised
 
-| Part | Topic | Student builds | Deliberate problem to explain | Time |
-|---|---|---|---|---|
-| 0 | Setup, recorder, Kaggle download | — | — | 0.5 h |
-| 1 | Entropy | `entropy_from_probabilities`, `class_probabilities`, `entropy` | `math domain error` on a pure group (0 log 0) | 1.5 h |
-| 2 | Information gain and its bias | `partition`, `information_gain`, `split_info`, `gain_ratio` | `patient_id` wins information gain | 1.5 h |
-| 3 | ID3 and prediction | `majority_class`, `best_attribute`, `id3`, `predict_one_naive`, `predict_one`, `classify` | prediction returns `None` for an unseen value | 2.5 h |
-| 4 | Real patients and clinical metrics | `confusion_counts`, `sensitivity`, `specificity`, `precision`, `f1_score`, `stratified_folds` | every tree scores exactly 86.07% | 2.5 h |
-| 5 | The limits of a single tree | `entropy_np`, `information_gain_np`, `best_threshold`, `should_stop`, `best_split`, `grow_tree` | BMI fragmented into one branch per value; two halves give different trees | 3 h |
-| 6 | Ensembles | `bootstrap_indices`, `fit_bagging`, `predict_proba_bagging`, `predict_bagging`, `fit_adaboost` | 17 of 25 bagged trees share the same root | 3 h |
-| 7 | Industry tools and the clinical decision | scikit-learn tree, forest, gradient boosting, `undersample_balanced`, `threshold_for_sensitivity` | precision collapses at real prevalence after balanced training | 2.5 h |
-| 8 | Submit | `lint_notebook_functions()`, `recording_status()`, `build_submission()` | — | 0.3 h |
+| Part | Topic                                    | Student builds                                                                                    | Deliberate problem to explain                                             | Time  |
+| ---- | ---------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----- |
+| 0    | Setup, recorder, Kaggle download         | —                                                                                                 | —                                                                         | 0.5 h |
+| 1    | Entropy                                  | `entropy_from_probabilities`, `class_probabilities`, `entropy`                                    | `math domain error` on a pure group (0 log 0)                             | 1.5 h |
+| 2    | Information gain and its bias            | `partition`, `information_gain`, `split_info`, `gain_ratio`                                       | `patient_id` wins information gain                                        | 1.5 h |
+| 3    | ID3 and prediction                       | `majority_class`, `best_attribute`, `id3`, `predict_one_naive`, `predict_one`, `classify`         | prediction returns `None` for an unseen value                             | 2.5 h |
+| 4    | Real patients and clinical metrics       | `confusion_counts`, `sensitivity`, `specificity`, `precision`, `f1_score`, `stratified_folds`     | every tree scores exactly 86.07%                                          | 2.5 h |
+| 5    | The limits of a single tree              | `entropy_np`, `information_gain_np`, `best_threshold`, `should_stop`, `best_split`, `grow_tree`   | BMI fragmented into one branch per value; two halves give different trees | 3 h   |
+| 6    | Ensembles                                | `bootstrap_indices`, `fit_bagging`, `predict_proba_bagging`, `predict_bagging`, `fit_adaboost`    | 17 of 25 bagged trees share the same root                                 | 3 h   |
+| 7    | Industry tools and the clinical decision | scikit-learn tree, forest, gradient boosting, `undersample_balanced`, `threshold_for_sensitivity` | precision collapses at real prevalence after balanced training            | 2.5 h |
+| 8    | Submit                                   | `lint_notebook_functions()`, `recording_status()`, `build_submission()`                           | —                                                                         | 0.3 h |
 
 Each part reuses the functions of the previous one: the `entropy` of Part 1 sits inside the `information_gain` of Part 2, inside the
 `id3` of Part 3, which is ported to arrays in Part 5 and wrapped in ensembles in Part 6. Every student-written function has visible
@@ -70,21 +76,21 @@ jupyter lab project_4_decision_trees.ipynb
 - Open the notebook in a **browser** (Chrome, Edge, Firefox or Safari) at the default `http://localhost` address; the microphone API is
   not available in some editor-embedded notebook views.
 - Part 0 downloads the data from Kaggle through `kagglehub` (6 MB, public, no Kaggle account needed) and keeps it in memory.
-- Work through the parts in order; expect about 17 hours in total. *Restart Kernel and Run All* should finish in roughly 4 to 10 minutes
+- Work through the parts in order; expect about 17 hours in total. _Restart Kernel and Run All_ should finish in roughly 4 to 10 minutes
   depending on your laptop; the slowest cell grows 25 bagged trees.
 - Finish with Part 8: `lint_notebook_functions()`, `recording_status()`, `build_submission()`, then upload `submission.zip` to Gradescope.
 
 ## For instructors and TAs
 
-| File | Purpose |
-|---|---|
-| `project_4_decision_trees.ipynb` | the assignment to distribute (with `requirements.txt`) |
-| `TA_GRADING_RUBRIC.md` / `.pdf` | 200-point rubric: checklists and model answers for all 20 voice questions, code tests, penalties, workflow, reference values |
-| `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags) |
-| `instructor/make_student_version.py` | regenerates the student notebook from the solution (strips solutions and outputs) |
-| `instructor/autograde.py` | executes a `submission.zip` and scores the 21 tagged test cells (100 points) |
-| `instructor/INSTRUCTOR_NOTES.md` | design rationale, recorder internals, data notes, expected results, grading load, variations |
-| `archive/` | the previous Project 4 notebook and rubric, kept for reference |
+| File                                                 | Purpose                                                                                                                      |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `project_4_decision_trees.ipynb`                     | the assignment to distribute (with `requirements.txt`)                                                                       |
+| `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 20 voice questions, code tests, penalties, workflow, reference values |
+| `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags)                            |
+| `instructor/make_student_version.py`                 | regenerates the student notebook from the solution (strips solutions and outputs)                                            |
+| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 21 tagged test cells (100 points)                                                 |
+| `instructor/INSTRUCTOR_NOTES.md`                     | design rationale, recorder internals, data notes, expected results, grading load, variations                                 |
+| `archive/`                                           | the previous Project 4 notebook and rubric, kept for reference                                                               |
 
 Grading: 110 points code (100 autograded + 10 reviewed), 70 points voice answers, 20 points process. The solution notebook scores
 100/100 on the autograder and runs end to end in about four minutes. Before the first release, open the student notebook in a browser,
