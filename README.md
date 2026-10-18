@@ -118,11 +118,6 @@ is self-reported survey data; the notebook presents the task as screening and ri
 ├── requirements.txt
 ├── TA_GRADING_RUBRIC.md                rubric (Markdown) and TA_GRADING_RUBRIC.pdf
 ├── README.md · CONTRIBUTING.md · LICENSE · .gitignore
-├── instructor/
-│   ├── project_4_decision_trees_SOLUTION.ipynb
-│   ├── make_student_version.py
-│   ├── autograde.py
-│   └── INSTRUCTOR_NOTES.md
 └── archive/                            previous version of the assignment
 ```
 
