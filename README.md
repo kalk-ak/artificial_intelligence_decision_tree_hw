@@ -96,12 +96,12 @@ jupyter lab project_4_decision_trees.ipynb
 | `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 19 voice questions, code tests, penalties, workflow, reference values |
 | `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags)                            |
 | `instructor/make_student_version.py`                 | regenerates the student notebook from the solution (strips solutions and outputs)                                            |
-| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 20 tagged test cells (100 points)                                                 |
+| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 10 coding questions (10 points each, 100 points)                                   |
 | `instructor/INSTRUCTOR_NOTES.md`                     | design rationale, recorder internals, data notes, expected results, grading load, variations                                 |
 | `archive/`                                           | the previous Project 4 notebook and rubric, kept for reference                                                               |
 
-Grading: **250 points available, graded out of 200.** The 200 base points are 110 for code (100 autograded + 10 reviewed),
-70 for voice answers and 20 for process; the 50 extra-credit points (four autograded coding tasks and one voice question in Part 8)
+Grading: **250 points available, graded out of 200.** The 200 base points are 100 for code (10 autograded coding questions,
+10 points each), 90 for voice answers (18 questions, 5 points each) and 10 for process; the 50 extra-credit points (four autograded coding tasks and one voice question in Part 8)
 are a buffer that can make up for lost points or lift a score above 100%. The solution notebook scores 100/100 base and 40/40
 extra credit on the autograder and runs end to end in about five minutes. Before the first release, open the student notebook in a browser
 and in VS Code, run the Q00 cell and record a few seconds in each to confirm both recorders work on your setup.
