@@ -83,6 +83,7 @@ jupyter lab project_4_decision_trees.ipynb
 - Open the notebook in a **browser** (Chrome, Edge, Firefox or Safari) at the default `http://localhost` address, or in **VS Code** with the
   Jupyter extension. In VS Code the notebook records through Python (`sounddevice` + `soundfile`), because VS Code blocks the browser
   microphone inside notebooks. On Linux, also install PortAudio (`conda install -c conda-forge portaudio`).
+- Keep `project4_helpers.py` in the same folder as the notebook; the notebook imports the voice recorder and the other course helpers from it.
 - Part 0 downloads the data from Kaggle through `kagglehub` (6 MB, public, no Kaggle account needed) and keeps it in memory.
 - Work through the parts in order; expect about 17 hours in total, plus 2 to 3 hours if you attempt the extra credit. _Restart Kernel and
   Run All_ should finish in roughly 5 to 10 minutes depending on your laptop; the slowest cell grows 25 bagged trees.
@@ -92,7 +93,8 @@ jupyter lab project_4_decision_trees.ipynb
 
 | File                                                 | Purpose                                                                                                                      |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `project_4_decision_trees.ipynb`                     | the assignment (239 cells, Parts 0–9, 18 voice questions + 1 optional, 7 deliberate problems, 50 points of extra credit)     |
+| `project_4_decision_trees.ipynb`                     | the assignment (238 cells, Parts 0–9, 18 voice questions + 1 optional, 7 deliberate problems, 50 points of extra credit)     |
+| `project4_helpers.py`                                | course helpers the notebook imports: voice questions and recorders, submission builder, function checker, plots, data loader |
 | `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 19 voice questions, code tests, penalties, workflow, reference values |
 | `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags)                            |
 | `instructor/make_student_version.py`                 | regenerates the student notebook from the solution (strips solutions and outputs)                                            |
@@ -124,7 +126,8 @@ is self-reported survey data; the notebook presents the task as screening and ri
 
 ```
 .
-├── project_4_decision_trees.ipynb      student notebook (239 cells, Parts 0-9, 18 voice questions + 1 optional)
+├── project_4_decision_trees.ipynb      student notebook (238 cells, Parts 0-9, 18 voice questions + 1 optional)
+├── project4_helpers.py                 course helpers the notebook imports (keep it next to the notebook)
 ├── requirements.txt
 ├── TA_GRADING_RUBRIC.md                rubric (Markdown) and TA_GRADING_RUBRIC.pdf
 ├── README.md · CONTRIBUTING.md · LICENSE · .gitignore

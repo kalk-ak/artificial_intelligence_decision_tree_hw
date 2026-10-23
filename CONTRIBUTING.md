@@ -51,7 +51,7 @@ The student notebook is **generated**; editing it directly will be overwritten. 
 | anything in the notebook (text, code, tests, voice questions) | `instructor/project_4_decision_trees_SOLUTION.ipynb` | regenerate the student notebook (step 4) |
 | the rubric | `TA_GRADING_RUBRIC.md` | regenerate the PDF if you can (`pandoc` + a browser print works; otherwise say so in the PR) |
 | the autograder points | `CODING_QUESTIONS` in `instructor/autograde.py` **and** the code table in the rubric | keep the two in sync |
-| the voice questions | the `VOICE_QUESTIONS` cell in the solution notebook **and** the rubric | ids `Q00`–`Q18` are referenced by the recorder, the checker and the rubric |
+| the voice questions | `VOICE_QUESTIONS` in `project4_helpers.py`, the purple banners in the solution notebook **and** the rubric | ids `Q00`–`Q18` are referenced by the recorder, the checker and the rubric |
 
 Conventions inside the solution notebook:
 

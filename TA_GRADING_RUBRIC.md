@@ -18,7 +18,7 @@ question with an inline player). Open `review.html` in a browser to listen; open
 | **Extra credit** (Part 8): four coding tasks EC1–EC4 (10 each, autograded) and voice question Q18 (10) | **50** | §3.2 and §4 |
 
 The notebook is deliberately long (about 17 hours of student work across Parts 0–7, plus an optional Part 8). Expect submissions of
-239 cells; the student-facing numbering (Part 0 … Part 9) matches the headings in this rubric.
+238 cells; the student-facing numbering (Part 0 … Part 9) matches the headings in this rubric.
 
 ---
 
@@ -272,8 +272,8 @@ The notebook tells students that docstrings and code comments get the most weigh
 | Recordings meet the target length (within reason) and are audible | 1 | `review.html` shows each duration | −1 if any recording is shorter than half its target or inaudible |
 
 Other penalties (apply once each): submitting a PDF or an `.ipynb` outside the zip (−5, and grade from the notebook if recordings were
-uploaded separately); data files or the kagglehub cache inside the zip (−2); modified infrastructure or test cells (−5 and grade the
-autograded part by re-running with the original cells).
+uploaded separately); data files or the kagglehub cache inside the zip (−2); modified test cells (−5 and grade the
+autograded part by re-running with the original cells; `autograde.py` always uses the course's own `project4_helpers.py`).
 
 ---
 
