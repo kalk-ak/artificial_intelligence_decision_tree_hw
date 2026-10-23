@@ -1,5 +1,6 @@
 # Student artifacts: never commit recordings or submissions
 recordings/
+ai_logs/
 submission.zip
 submissions/
 

@@ -23,6 +23,7 @@ October 2026.
 >
 > **Using AI to learn is encouraged.** The notebook says so on its first page: students may use any AI tool to understand a concept,
 > an error message or a question. What must be their own is the code they can explain and the recorded explanation itself.
+> Students who use an AI chat save those conversations as PDFs in `ai_logs/`, and `build_submission()` packs them into the zip.
 > Details in [Voice answers](#voice-answers).
 
 ## What students learn
@@ -55,11 +56,11 @@ October 2026.
 
 Each part reuses the functions of the previous one: the `entropy` of Part 1 sits inside the `information_gain` of Part 2, inside the
 `id3` of Part 3, which is ported to arrays in Part 5 and wrapped in ensembles in Part 6. Every student-written function has visible
-self-check `assert` cells; 21 of them are autograded.
+self-check `assert` cells; 20 of them are autograded.
 
 ## Voice answers
 
-Twenty required questions (Q00–Q19, 20 to 180 seconds each) and one optional extra-credit question (Q20) are answered out loud.
+Eighteen required questions (Q00–Q17, 20 to 180 seconds each) and one optional extra-credit question (Q18) are answered out loud.
 The prompts ask for general understanding in the student's own words; a few ask for a rough number from the student's own output. A recorder built into the notebook (an
 [anywidget](https://anywidget.dev) around the browser's `MediaRecorder`) saves each take to `recordings/<QID>.webm` together with its
 length, a UTC timestamp and a SHA-256 fingerprint in `recordings/manifest.json`. `build_submission()` verifies the set and writes
@@ -90,11 +91,11 @@ jupyter lab project_4_decision_trees.ipynb
 
 | File                                                 | Purpose                                                                                                                      |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `project_4_decision_trees.ipynb`                     | the assignment (222 cells, Parts 0–9, 20 voice questions + 1 optional, 8 deliberate problems, 50 points of extra credit)     |
-| `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 20 voice questions, code tests, penalties, workflow, reference values |
+| `project_4_decision_trees.ipynb`                     | the assignment (239 cells, Parts 0–9, 18 voice questions + 1 optional, 7 deliberate problems, 50 points of extra credit)     |
+| `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 19 voice questions, code tests, penalties, workflow, reference values |
 | `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags)                            |
 | `instructor/make_student_version.py`                 | regenerates the student notebook from the solution (strips solutions and outputs)                                            |
-| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 21 tagged test cells (100 points)                                                 |
+| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 20 tagged test cells (100 points)                                                 |
 | `instructor/INSTRUCTOR_NOTES.md`                     | design rationale, recorder internals, data notes, expected results, grading load, variations                                 |
 | `archive/`                                           | the previous Project 4 notebook and rubric, kept for reference                                                               |
 
@@ -122,7 +123,7 @@ is self-reported survey data; the notebook presents the task as screening and ri
 
 ```
 .
-├── project_4_decision_trees.ipynb      student notebook (222 cells, Parts 0-9, 20 voice questions + 1 optional)
+├── project_4_decision_trees.ipynb      student notebook (239 cells, Parts 0-9, 18 voice questions + 1 optional)
 ├── requirements.txt
 ├── TA_GRADING_RUBRIC.md                rubric (Markdown) and TA_GRADING_RUBRIC.pdf
 ├── README.md · CONTRIBUTING.md · LICENSE · .gitignore

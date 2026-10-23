@@ -10,14 +10,14 @@ These notes are for course staff only; do not distribute the `instructor/` folde
 | Scope | implement `train` (ID3) for the mushroom data, then "use a library" | an 8-part course: entropy → information gain → ID3 → honest metrics on real data → failure modes → bagging, random forests, AdaBoost → scikit-learn / gradient boosting → clinical decision |
 | Data | UCI mushrooms, 8,124 rows, shipped as a file | CDC BRFSS 2015 diabetes indicators, 253,680 rows × 21 features, downloaded from Kaggle by the notebook (`kagglehub`, public, no account needed) and held in memory |
 | Written explanations | none / free text | 20 **voice answers** (+1 optional) recorded by a widget inside the notebook; prompts ask for general understanding in the student's own words, a few for a rough number from their own output |
-| Pedagogy | one task | 8 deliberate problems the student must diagnose (crash on 0·log 0, identifier wins gain, `None` for unseen values, 86 % accuracy paradox, fragmentation, instability, correlated bagged trees, base-rate collapse) |
-| Student-written code | 1 function | 32 functions in 19 solution cells, each with visible asserts (21 test cells, 100 autograded points) |
+| Pedagogy | one task | 7 deliberate problems the student must diagnose (crash on 0·log 0, identifier wins gain, `None` for unseen values, 86 % accuracy paradox, instability, correlated bagged trees, base-rate collapse); BMI fragmentation is still shown in Part 5 as a "closer look" |
+| Student-written code | 1 function | 29 functions in 18 solution cells, each with visible asserts (20 test cells, 100 autograded points) |
 | Grading | 100 pts, 1-page rubric | 250 pts available, graded out of 200 (50 extra credit); `TA_GRADING_RUBRIC.md`; `autograde.py`; integrity manifest for recordings |
 | Length | ~5–8 h | ~17 h plus an optional 2–3 h extra-credit part (see the time table in Part 0); can be split into two milestones, see §7 |
 
 ## 2. Files
 
-Notebook structure: Parts 0–7 are the course, Part 8 is optional extra credit (EC1–EC4 code tasks + voice question Q20), Part 9 is the
+Notebook structure: Parts 0–7 are the course, Part 8 is optional extra credit (EC1–EC4 code tasks + voice question Q18), Part 9 is the
 submission checklist. Extra-credit stubs read `return None` instead of raising, so an unattempted task never breaks *Restart & Run All*;
 their check cells print *skipped* and the autograder reports `SKIPPED`.
 
@@ -41,6 +41,27 @@ archive/                              the previous project_4.ipynb and rubric PD
 `### END SOLUTION` markers and the cell tags `test`, `test:<name>`, `voice`, `infra`), run it top to bottom, then regenerate the student
 file: `python instructor/make_student_version.py instructor/project_4_decision_trees_SOLUTION.ipynb project_4_decision_trees.ipynb`.
 Cells tagged `solution-only` are dropped from the student version if you want instructor-only commentary in the master.
+
+The voice prompts live in one place, `VOICE_QUESTIONS` in the infrastructure cell. The recorder, `recording_status()` and the purple
+banners all show that text, so change a prompt or its target length there and copy the same text into the banner (or regenerate the
+banners). On 2026-10-22 the banners for Q01, Q02, Q05 and Q07 had been edited without the registry; both were re-synchronised.
+
+**Revision of 2026-10-22.** Parts 0–3 were rewritten by Kaleb Aklilu in the student notebook (longer plain-language explanations,
+worked examples, HINT/NOTE comments in the stubs); Parts 4–9 were then rewritten in the same style (a "walkthrough" cell after each
+implementation task, hand-checkable examples that match the self-checks, a "Where you stand" recap at the end of Parts 4–6). Function
+signatures, test cells, tags, seeds and point values did not change, so every reference value in the rubric still holds. The master was
+rebuilt from those edits and re-executed (Python 3.11, numpy 2.4.6, pandas 3.0.6, scikit-learn 1.9.1, no xgboost: ≈ 4.8 minutes,
+no errors), and the student notebook was regenerated from it.
+
+Later the same day, Part 5 was lightened at the TA's request. `entropy_np`, `information_gain_np` and `best_split` are now provided
+(their walkthroughs stay, as "how the provided code works"), so students write `best_threshold`, `should_stop` and `grow_tree`; the 4
+`entropy_np` points moved to `best_threshold` (8) and `grow_tree` (14). Voice questions Q12 (fragmentation) and Q14 (Income/Education)
+were removed and the rest renumbered (Q00–Q17 required, Q18 extra credit); their 7 points went to Q11, the instability and base-rate
+questions and the capstone. The BMI fragmentation experiment stays as a "closer look", so there are now 7 deliberate problems.
+
+**AI conversation logs.** The notebook encourages AI chat tools for learning and asks students to save those conversations as PDFs
+in `ai_logs/` (browser print-to-PDF). `build_submission()` packs every PDF in that folder into `submission.zip` and reports what it
+found; no points are attached, and `.gitignore` keeps `ai_logs/` out of the repository.
 
 ## 3. The voice recorder
 
@@ -86,10 +107,9 @@ Cells tagged `solution-only` are dropped from the student version if you want in
 | 2 | Part 2 | `patient_id` has gain 0.954 = H(parent) | many-valued attributes buy purity by fragmentation; gain ratio helps (0.243 vs 0.239) but barely |
 | 3 | Part 3 | `predict_one_naive` returns `None` for an underweight patient; scoring refuses it | the walk has no branch; fall back to the node's stored majority |
 | 4 | Part 4 | depths 0–6 all score ≈ 86 %, deeper is worse | prevalence 13.9 %; leaves must exceed 50 % positives to flip; accuracy hides the minority; sensitivity/specificity |
-| 5 | Part 5 | categorical tree: 17,079 leaves, 8 % unseen-branch rate; BMI split into 68/58 branches | fragmentation = problem #2 at scale; thresholds fix it |
-| 6 | Part 5 | two halves: roots `GenHlth ≤ 2.5` vs `HighBP`, 14.6 % disagreement | greedy root choice + full growth = high variance |
-| 7 | Part 6 | 17 of 25 bagged trees rooted at `HighBP`; sensitivity falls at the 0.5 vote threshold | correlated trees; `max_features`; the vote fraction is a threshold dial |
-| 8 | Part 7 | balanced-trained model: precision 0.73 on a balanced holdout, 0.30 at real prevalence | base rates; evaluate at deployment prevalence |
+| 5 | Part 5 | two halves: roots `GenHlth ≤ 2.5` vs `HighBP`, 14.6 % disagreement | greedy root choice + full growth = high variance |
+| 6 | Part 6 | 17 of 25 bagged trees rooted at `HighBP`; sensitivity falls at the 0.5 vote threshold | correlated trees; `max_features`; the vote fraction is a threshold dial |
+| 7 | Part 7 | balanced-trained model: precision 0.73 on a balanced holdout, 0.30 at real prevalence | base rates; evaluate at deployment prevalence |
 
 ## 6. Expected results and runtime (solution notebook, 16-core laptop, Python 3.12)
 
@@ -109,9 +129,9 @@ Versions tested: numpy 2.5, pandas 3.0, scikit-learn 1.9, matplotlib 3.11, anywi
 ## 7. Suggested use
 
 * **Milestones.** A natural split is Milestone A = Parts 0–4 (entropy to metrics, Q00–Q10, ≈ 8 h) and Milestone B = Parts 5–8
-  (array trees to the capstone, Q11–Q19, ≈ 9 h). `build_submission()` requires all 20 recordings; for a two-milestone run, tell students
+  (array trees to the capstone, Q11–Q17, ≈ 9 h). `build_submission()` requires all 18 recordings; for a two-milestone run, tell students
   to submit the notebook plus the `recordings/` folder as a zip for Milestone A (or temporarily trim `VOICE_QUESTIONS`).
-* **In-class hooks.** Part 4's 86 % table and Part 7's base-rate cell make good 10-minute discussions. The capstone (Q19) can be
+* **In-class hooks.** Part 4's 86 % table and Part 7's base-rate cell make good 10-minute discussions. The capstone (Q17) can be
   turned into a 3-minute in-class pitch for a few volunteers.
 * **Grading load.** ≈ 30 TA-minutes per submission (autograder unattended, 5 min code review, 20 min listening at 1.5×). The rubric
   suggests grading one question across many students for consistency. Optional: transcribe recordings with Whisper to skim before listening;

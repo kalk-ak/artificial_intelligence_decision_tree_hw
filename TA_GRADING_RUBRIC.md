@@ -12,14 +12,14 @@ question with an inline player). Open `review.html` in a browser to listen; open
 
 | Component | Points | How it is graded |
 |---|---:|---|
-| Code: autograded self-checks (21 tagged test cells) | 100 | `instructor/autograde.py` runs the notebook and scores each test cell pass/fail |
+| Code: autograded self-checks (20 tagged test cells) | 100 | `instructor/autograde.py` runs the notebook and scores each test cell pass/fail |
 | Code: TA review of code quality and experiments | 10 | §3.2 |
-| Voice answers (20 required recordings, Q00–Q19) | 70 | §4, graded while listening to `review.html` |
+| Voice answers (18 required recordings, Q00–Q17) | 70 | §4, graded while listening to `review.html` |
 | Process: Restart & Run All, docstrings, function length, complete submission | 20 | §5 |
-| **Extra credit** (Part 8): four coding tasks EC1–EC4 (10 each, autograded) and voice question Q20 (10) | **50** | §3.3 and §4 |
+| **Extra credit** (Part 8): four coding tasks EC1–EC4 (10 each, autograded) and voice question Q18 (10) | **50** | §3.3 and §4 |
 
 The notebook is deliberately long (about 17 hours of student work across Parts 0–7, plus an optional Part 8). Expect submissions of
-222 cells; the student-facing numbering (Part 0 … Part 9) matches the headings in this rubric.
+239 cells; the student-facing numbering (Part 0 … Part 9) matches the headings in this rubric.
 
 ---
 
@@ -32,10 +32,10 @@ The notebook is deliberately long (about 17 hours of student work across Parts 0
 | 2 Information gain | `partition`, `information_gain`, `split_info`, `gain_ratio` | #2 `patient_id` wins information gain (many-values bias) | Q03, Q04 |
 | 3 ID3 | `majority_class`, `best_attribute`, `id3`, `predict_one_naive`, `predict_one`, `classify` | #3 prediction returns `None` for an unseen attribute value | Q05, Q06, Q07 |
 | 4 Real data & metrics | `confusion_counts`, `sensitivity`, `specificity`, `precision`, `f1_score`, `stratified_folds` | #4 every tree scores 86.07 % (accuracy paradox); duplicates | Q08, Q09, Q10 |
-| 5 Limits of one tree | `entropy_np`, `information_gain_np`, `best_threshold`, `should_stop`, `best_split`, `grow_tree` | #5 BMI split into one branch per value (fragmentation); #6 two halves give different trees (instability) | Q11, Q12, Q13, Q14 |
-| 6 Ensembles | `bootstrap_indices`, `fit_bagging`, `predict_proba_bagging`, `predict_bagging`, `fit_adaboost` | #7 bagged trees share the same root (correlation) | Q15, Q16, Q17 |
-| 7 Industry tools | scikit-learn tree, forest, gradient boosting (+ optional XGBoost), `undersample_balanced`, `threshold_for_sensitivity` | #8 precision collapses at real prevalence after balanced training | Q18, Q19 capstone |
-| 8 Extra credit (optional) | `best_threshold_fast`, `fit_bagging_oob` + `oob_predict_proba`, `prune_tree`, `threshold_for_cost` | — | Q20 (optional) |
+| 5 Limits of one tree | `best_threshold`, `should_stop`, `grow_tree` (`entropy_np`, `information_gain_np` and `best_split` are provided) | #5 two halves give different trees (instability); fragmentation of BMI is shown as a "closer look" but has no question | Q11, Q12 |
+| 6 Ensembles | `bootstrap_indices`, `fit_bagging`, `predict_proba_bagging`, `predict_bagging`, `fit_adaboost` | #6 bagged trees share the same root (correlation) | Q13, Q14, Q15 |
+| 7 Industry tools | scikit-learn tree, forest, gradient boosting (+ optional XGBoost), `undersample_balanced`, `threshold_for_sensitivity` | #7 precision collapses at real prevalence after balanced training | Q16, Q17 capstone |
+| 8 Extra credit (optional) | `best_threshold_fast`, `fit_bagging_oob` + `oob_predict_proba`, `prune_tree`, `threshold_for_cost` | — | Q18 (optional) |
 | 9 Submit | `lint_notebook_functions()`, `recording_status()`, `build_submission()` | — | — |
 
 ---
@@ -57,6 +57,11 @@ clearly contradicts the student's own notebook output earns nothing for that ite
 **Using AI to learn is allowed and encouraged** (the notebook says so). What is not allowed is outsourcing the recorded explanation itself.
 Grade what the student says, not how they prepared.
 
+**AI conversation logs.** Students who used an AI chat tool are asked to save those conversations as PDFs in an `ai_logs/` folder;
+`build_submission()` packs them into `submission.zip` and prints which logs it found. Read them as context: they show how the student
+used the tool. The notebook asks for the logs but attaches no points to them, so a missing log or a log that shows a copied function
+goes to the instructor rather than being penalised by the TA.
+
 **Identity.** Q00 is a mic check where the student states their name and JHED ID. Use it to confirm that the same voice answers all
 questions. A clear voice mismatch across questions, or a recording that is obviously synthesized, goes to the instructor (do not grade it;
 note the question ids).
@@ -73,7 +78,7 @@ specifics of this notebook; an answer to a different question than the one asked
 `manifest.json` was recorded outside the notebook (allowed fallback for microphone problems); grade it normally. A manifest whose SHA-256 does
 not match the file (`build_submission()` refuses to package such a submission, so this means manual tampering) goes to the instructor.
 
-**Q20 is optional.** If it is missing, record 0 extra-credit points for it and nothing else; `review.html` marks it "optional".
+**Q18 is optional.** If it is missing, record 0 extra-credit points for it and nothing else; `review.html` marks it "optional".
 
 **Integrity escalation.** Escalate rather than penalise when: two students' recordings are near-identical in wording; a voice mismatch;
 a recording that answers a different question than asked in a way suggesting a shared answer bank.
@@ -103,9 +108,8 @@ grade those by hand only if the fix is a one-line slip, and apply the Process de
 | `predict_one` | `predict_one`, `classify` | 5 | naive still returns `None`; fallback returns node majority at root and at an internal node; lecture error rates 0.0 and 7/15 | 3 if fallback uses the global majority instead of the node's |
 | `metrics` | `confusion_counts`, `sensitivity`, `specificity`, `precision`, `f1_score` | 6 | hand-computed counts; zero-division cases return 0; string labels; all-negative predictor on the holdout | 1 per correct metric |
 | `stratified_folds` | `stratified_folds` | 3 | 5 disjoint folds covering all indices, sizes within 2, prevalence within 0.5 % | 1 if folds are random but not stratified |
-| `entropy_np` | `entropy_np`, `information_gain_np` | 4 | matches the list versions on toy data and on a real column; empty/pure arrays | 2 if gain right but entropy crashes on empty |
-| `best_threshold` | `best_threshold` | 6 | perfect split at 3.5; `min_samples_leaf` makes it return `(None, -inf)`; constant column; dev-data BMI threshold is optimal by brute force | 3 if midpoints wrong but best split found |
-| `grow_tree` | `should_stop`, `best_split`, `grow_tree` | 12 | reproduces the Part 3 trees on encoded toy/lecture data; unseen value falls back and is flagged; real root `HighBP` then `GenHlth <= 2.5` both sides; `min_samples_leaf=500` respected; categorical mode equals ID3; `choose_pool` size | 6 if categorical mode works but numeric splits fail; 3 if only stopping rules right |
+| `best_threshold` | `best_threshold` | 8 | perfect split at 3.5; `min_samples_leaf` makes it return `(None, -inf)`; constant column; dev-data BMI threshold is optimal by brute force | 4 if midpoints wrong but best split found |
+| `grow_tree` | `should_stop`, `grow_tree` (`best_split` is provided) | 14 | reproduces the Part 3 trees on encoded toy/lecture data; unseen value falls back and is flagged; real root `HighBP` then `GenHlth <= 2.5` both sides; `min_samples_leaf=500` respected; categorical mode equals ID3; `choose_pool` size | 7 if categorical mode works but numeric splits fail; 4 if only stopping rules right |
 | `bagging` | `bootstrap_indices`, `fit_bagging`, `predict_proba_bagging`, `predict_bagging` | 8 | 63.2 % distinct rows; list of `Node`s; vote fractions in k/7 steps; threshold 0 flags everyone | 2 per function |
 | `adaboost` | `fit_adaboost` | 9 | ≥ 20 rounds; stumps; first error = prevalence; alpha formula; all alphas > 0 and errors in (0, 0.5); error rises in round 2 | 5 if weights update right but the stop rule is missing; 3 if resampling ignores the weights |
 | `sk_tree` | scikit-learn tree | 3 | entropy criterion, depth 8, trained on all 202,944 rows, accuracy > 0.86, sensitivity > 0.10 | — |
@@ -151,13 +155,13 @@ is the authority if its outputs differ because of a legitimate implementation ch
 - 1 — gives any prior conception of a decision tree (there is no wrong answer).
 - Zero: silence, unintelligible audio, or a different student's voice.
 
-### Q01 · What entropy measures · 3 pts · 45–90 s
-- 1 — entropy measures uncertainty / how mixed a group is / the expected number of yes-no questions needed to name the label.
-- 1 — 50/50 is 1 bit because one yes/no question resolves it; all-the-same is 0 bits because there is nothing to resolve.
-- 1 **(number)** — mentions the entropy of the real label, roughly 0.5–0.6 bits (reference 0.58), and reads it as "mostly predictable" because only 14 % are positive.
+### Q01 · What entropy measures · 3 pts · 15–90 s
+- 1 — entropy measures uncertainty / how mixed a group is / the expected number of yes-no questions needed to name the label / the average surprisal (the prompt says "think of surprisals": rare outcomes are surprising, −log₂ p, and entropy averages that surprise).
+- 1 — 50/50 is 1 bit because one yes/no question resolves it (each outcome has surprisal 1 bit); all-the-same is 0 bits because there is nothing to resolve (the only outcome is certain, surprisal 0).
+- 1 **(number)** — mentions the entropy of the real label, roughly 0.5–0.6 bits (reference 0.58), and explains why it is below 1: the label is far from 50/50 (only 14 % positive), so it is mostly predictable.
 - Zero: "entropy measures how random the tree is", or no idea what the real value was.
 
-### Q02 · Deliberate problem #1, the pure group · 4 pts · 30–75 s
+### Q02 · Deliberate problem #1, the pure group · 4 pts · 15–30 s
 - 1 — describes what happened: a crash (`ValueError: math domain error` or equivalent) on `[1.0, 0.0]`.
 - 1 **(cause)** — the formula ends up computing 0 times log(0), and log(0) is undefined.
 - 1 — why 0·log 0 = 0 is reasonable: the limit of p log p as p goes to 0 is 0, or in words, a class that never occurs adds no uncertainty.
@@ -191,8 +195,9 @@ is the authority if its outputs differ because of a legitimate implementation ch
 - Zero: "I added underweight to the training data".
 
 ### Q07 · Greedy choice · 2 pts · 30–60 s
-- 1 — ID3 re-evaluates attributes *within each child*: after the `BMI_class` split, `Age_group` and `PhysActive` are better inside their branches than `HighBP`.
-- 1 — so a feature that is second-best globally can be redundant given the first split and never be chosen; the algorithm never looks back.
+- 1 — mechanism: ID3 re-evaluates attributes *within each child*: after the `BMI_class` split, `Age_group` and `PhysActive` are better inside their branches than `HighBP`, so a feature that is second-best globally can be redundant given the first split and never be chosen; the algorithm never looks back.
+- 1 — benefit of splitting greedily: it is fast and simple (one pass over the remaining attributes per node), whereas searching every possible tree for the best one is combinatorially infeasible (NP-hard); the greedy tree is usually good enough.
+- Half credit on the first item if the student explains only one of the two halves (within-child re-evaluation, or never looking back).
 - Zero: "HighBP had low gain".
 
 ### Q08 · Deliberate problem #4, the 86 % wall · 4 pts · 45–90 s
@@ -213,67 +218,55 @@ is the authority if its outputs differ because of a legitimate implementation ch
 - 1 — what to do: deduplicate before splitting, or keep identical rows in the same fold; may note that identical rows can be different people with identical coarse answers.
 - Zero: "duplicates make the model more accurate, which is good".
 
-### Q11 · Learning curves · 3 pts · 45–90 s
+### Q11 · Learning curves · 4 pts · 45–90 s
 - 1 — shape: training error keeps falling as depth grows; holdout error falls, bottoms out (around depth 5–8), then rises.
 - 1 — the right side is **overfitting**: the deep tree fits the noise of its 50,000 particular rows, not the population.
 - 1 — training error keeps falling because a deeper tree can memorise its sample (eventually pure leaves).
+- 1 — makes it concrete: the memorising-student picture (perfect on last year's exam, lost on this year's) or the remedy (limit depth or `min_samples_leaf` to stay near the bottom of the holdout curve).
 - Zero: calls the right side "underfitting".
 
-### Q12 · Deliberate problem #5, fragmentation · 4 pts · 45–90 s
-- 1 — the categorical tree had far more leaves (about twice as many) and sent some holdout patients (about 8 %) down branches that never existed; the threshold tree had none.
-- 1 **(cause)** — one branch per BMI value leaves a handful of patients per branch, pure by accident; the tree memorises instead of generalising (the identifier problem again).
-- 1 **(cause)** — a threshold split asks a two-way question (`BMI <= t`) with patients on both sides, and can ask about BMI again deeper down with another cut.
-- 1 — links it to Part 2 (gain's bias toward many values) or to the fallback that silently handled the unseen branches.
-- Zero: "the threshold tree is better because it is smaller" with no mechanism.
-
-### Q13 · Deliberate problem #6, instability · 4 pts · 45–90 s
+### Q12 · Deliberate problem #5, instability · 5 pts · 45–90 s
 - 1 — the trees differed in their first question (reference: `GenHlth <= 2.5` vs `HighBP`) and disagreed on roughly one patient in seven (reference 14.6 %; accept 10–20 %).
-- 1 **(cause)** — the greedy root choice hinges on small differences in gain; once it differs, everything below differs, and a full-depth tree fits the noise of its sample.
+- 2 **(cause)** — the greedy root choice hinges on small differences in gain; once it differs, everything below differs, and a full-depth tree fits the noise of its sample.
 - 1 — "high variance" means the predictions depend heavily on which sample the tree happened to see.
 - 1 — the physician's unease: rules that change when retrained are hard to trust, audit or explain; the same patient can get a different answer.
 - Zero: "different patients, so of course different trees" with no mechanism.
 
-### Q14 · Income and Education in a clinical tool · 3 pts · 45–90 s
-- 1 — one argument for: real predictive signal (access to care, diet, environment); dropping them can lower sensitivity for the groups most at risk.
-- 1 — one argument against: proxies for protected or sensitive attributes, can perpetuate disparities, not clinically actionable, possibly unacceptable as a basis for triage.
-- 1 — a position plus what to check: subgroup sensitivity/specificity and calibration across income and education groups, whether the features add anything beyond clinical ones, how the output is used.
-- Zero: only one side, or no position.
-
-### Q15 · Bagging · 3 pts · 45–90 s
+### Q13 · Bagging · 3 pts · 45–90 s
 - 1 — bagging: draw bootstrap samples (with replacement), grow a tree on each, let them vote; averaging reduces variance.
 - 1 — at the 0.5 threshold accuracy went up but sensitivity went down, because a minority-class patient rarely gets a majority of the votes.
 - 1 — lowering the threshold raised sensitivity (at a cost in false alarms); the vote fraction is a probability-like score you can threshold, which a single tree's hard labels do not give you.
 - Zero: "bagging always improves every metric".
 
-### Q16 · Deliberate problem #7, correlated trees · 4 pts · 45–90 s
+### Q14 · Deliberate problem #6, correlated trees · 4 pts · 45–90 s
 - 1 **(cause)** — bootstrap samples share most of their rows, so the strongest feature wins the root almost every time; the trees are similar.
 - 1 **(cause)** — averaging similar (correlated) trees cancels less noise than averaging independent ones.
 - 1 — `max_features` restricts each node to a random subset of columns, forcing trees to ask different questions (decorrelation).
 - 1 — what they noticed: the roots spread over many features; ranking quality and the low-threshold scores edged up; the gain was modest because a few features dominate.
 - Zero: "max_features makes the trees faster" as the only explanation.
 
-### Q17 · AdaBoost · 3 pts · 45–90 s
+### Q15 · AdaBoost · 3 pts · 45–90 s
 - 1 — a patient the stump got wrong gets a larger weight (multiplied by e^alpha), a correctly classified one a smaller weight, then weights are renormalised.
 - 1 — with uniform weights the first stump predicts "no" for everyone, so its error equals the prevalence (about 0.14).
-- 1 — the reweighting makes the diabetic patients count much more, so later stumps must find features that separate them; that is how boosting attends to the minority.
+- 1 — the reweighting makes the diabetic patients count much more, so later stumps must find features that separate them; that is how boosting attends to the minority. (Accept the notebook's sharper version: after one round the misclassified diabetic patients carry exactly half of the total weight, so "no for everyone" becomes a coin flip.)
 - Zero: "boosting trains the trees in parallel".
 
-### Q18 · Deliberate problem #8, base rates · 4 pts · 45–90 s
+### Q16 · Deliberate problem #7, base rates · 5 pts · 45–90 s
 - 1 — sensitivity and specificity belong to the test; precision also depends on how common the disease is (base rate / prevalence).
-- 1 **(cause)** — at 14 % prevalence the many healthy people, times the false-positive rate, produce more false alarms than there are true cases to find; on a balanced test set there are far fewer healthy people, so precision looks high.
+- 2 **(cause)** — at 14 % prevalence the many healthy people, times the false-positive rate, produce more false alarms than there are true cases to find; on a balanced test set there are far fewer healthy people, so precision looks high.
 - 1 **(number)** — roughly 250 false positives per 1,000 screened (reference 252; accept 200–300), or an equivalent statement such as "two false alarms for every true case".
 - 1 — conclusion: judge the model at the prevalence it will meet; a balanced test set misleads about precision.
 - Zero: "the model overfit the balanced data".
 
-### Q19 · Capstone recommendation · 8 pts · 120–180 s
-- 2 — a specific recommendation: a model (gradient boosting or random forest expected; a well-argued tree is acceptable) and a threshold, with roughly its sensitivity and specificity (reference for gradient boosting at the 80 % sensitivity point: specificity about 0.70, precision about 0.30).
-- 2 — two concrete failure modes, e.g.: self-reported survey features differ from clinic data; 2015 US population vs the deployment population; calibration drift; subgroup performance gaps; unseen or missing values; duplicates inflating validation numbers; false positives overwhelming confirmatory testing.
-- 2 — one ethical or practical concern, with a sentence on how to handle it: income/education features, burden of false positives, missed cases, consent, automation bias.
+### Q17 · Capstone recommendation · 12 pts · 120–180 s
+- 3 — a specific recommendation: a model (gradient boosting or random forest expected; a well-argued tree is acceptable) and a threshold, with roughly its sensitivity and specificity (reference for gradient boosting at the 80 % sensitivity point: specificity about 0.70, precision about 0.30).
+- 3 — two concrete failure modes, e.g.: self-reported survey features differ from clinic data; 2015 US population vs the deployment population; calibration drift; subgroup performance gaps; unseen or missing values; duplicates inflating validation numbers; false positives overwhelming confirmatory testing.
+- 3 — one ethical or practical concern, with a sentence on how to handle it: the Income and Education features the tree leans on (Part 5.8), burden of false positives, missed cases, consent, automation bias.
 - 1 — the recommendation is consistent with the student's own results (threshold and metrics match their Part 7 tables within reason).
-- 1 — the reflection: one honest sentence contrasting the Q00 answer with what they now understand.
+- 2 — the reflection: one honest sentence contrasting the Q00 answer with what they now understand.
 - Zero: a recommendation with no numbers at all, or "86 % accuracy" as the justification.
 
-### Q20 · Extra credit: bias and variance · 10 pts · 60–120 s (optional)
+### Q18 · Extra credit: bias and variance · 10 pts · 60–120 s (optional)
 - 3 — bias and variance in their own words: bias = systematic error from a model that is too simple or too constrained; variance = error from sensitivity to the particular sample.
 - 3 — a variance-reducing experiment from the notebook, correctly explained: bagging or random forests (averaging many trees), `min_samples_leaf`, pruning, or the depth limit.
 - 3 — a bias-reducing experiment, correctly explained: AdaBoost (sequentially correcting the stumps' mistakes), deeper trees, or threshold splits replacing coarse categorical ones.
@@ -289,7 +282,7 @@ is the authority if its outputs differ because of a legitimate implementation ch
 | Restart & Run All: notebook runs top to bottom without error, cells numbered in order | 6 | execution counts are 1, 2, 3, … in order; `autograde.py` reports no non-test cell errors | −6 if cells are out of order or any cell errored; −3 if a single cosmetic cell failed (e.g., XGBoost import without try/except). Unattempted extra-credit tasks do not count as errors |
 | Docstrings on every function the student wrote | 4 | `lint_notebook_functions()` output in Part 9 (`has_docstring` column) | −1 per missing docstring, floor 0 |
 | Functions about 20 lines or fewer (earnest attempt) | 3 | same table, `body_lines` column | −1 per function over 30 lines; ignore 21–30 |
-| Complete submission: `submission.zip` built by the notebook, containing the notebook, the 20 required recordings, `manifest.json` and `review.html`; manifest hashes match the files | 4 | unzip and open `review.html`; `autograde.py` prints the manifest summary | −4 if the zip was assembled by hand with recordings missing or renamed; −2 if 1–2 recordings missing (and 0 for those questions in §4) |
+| Complete submission: `submission.zip` built by the notebook, containing the notebook, the 18 required recordings, `manifest.json`, `review.html` and any `ai_logs/*.pdf`; manifest hashes match the files | 4 | unzip and open `review.html`; `autograde.py` prints the manifest summary | −4 if the zip was assembled by hand with recordings missing or renamed; −2 if 1–2 recordings missing (and 0 for those questions in §4) |
 | Recordings meet the target length (within reason) and are audible | 3 | `review.html` shows each duration | −1 per recording shorter than half its target or inaudible, floor 0 |
 
 Other penalties (apply once each): submitting a PDF or an `.ipynb` outside the zip (−5, and grade from the notebook if recordings were
@@ -304,7 +297,7 @@ autograded part by re-running with the original cells).
    Each run is about 5 minutes on a laptop (the bagging cells dominate); run them in parallel or overnight. Record the base score (out of 100)
    and the extra-credit score (out of 40) that it prints.
 2. **Open the notebook** (the executed copy produced by the autograder is fine) and score §3.2 (10 pts) and §5 (20 pts): about 5 minutes.
-3. **Open `recordings/review.html`** and grade §4 top to bottom with the checklists, Q20 included if present. Total audio per student is
+3. **Open `recordings/review.html`** and grade §4 top to bottom with the checklists, Q18 included if present. Total audio per student is
    15–25 minutes; at 1.5× speed, plus note-taking, budget **20 minutes per student**. Grade one question across several students in a row
    if you prefer consistency over speed.
 4. **Escalate**, do not resolve: voice mismatches, manifest hash mismatches, near-identical recordings across students, and any suspected

@@ -33,11 +33,11 @@ POINTS = {
     "entropy_from_probabilities": 3, "entropy_pure": 2, "entropy": 3, "entropy_real": 1,
     "information_gain": 6, "gain_ratio": 4, "best_attribute": 4, "id3": 10, "predict_naive": 2, "predict_one": 5,
     "metrics": 6, "stratified_folds": 3,
-    "entropy_np": 4, "best_threshold": 6, "grow_tree": 12,
+    "best_threshold": 8, "grow_tree": 14,          # entropy_np / information_gain_np are provided since 2026-10-22
     "bagging": 8, "adaboost": 9,
     "sk_tree": 3, "models": 4, "undersample": 2, "threshold": 3,
 }
-EXTRA_POINTS = {"ec_fast_threshold": 10, "ec_oob": 10, "ec_prune": 10, "ec_cost": 10}   # + Q20 voice (10) graded by TAs
+EXTRA_POINTS = {"ec_fast_threshold": 10, "ec_oob": 10, "ec_prune": 10, "ec_cost": 10}   # + Q18 voice (10) graded by TAs
 
 
 def run(nb_path: pathlib.Path, timeout: int):
