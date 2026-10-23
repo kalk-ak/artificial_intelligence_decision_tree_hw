@@ -5,6 +5,7 @@
 ![Jupyter](https://img.shields.io/badge/notebook-JupyterLab%204-orange)
 
 Who worked on this
+
 Musab Hadque <mhaque5@jhu.edu>, instructor of record for EN.601.464: course content, the lecture material
 (the lecture dataset and tree that the self-checks reproduce) and approval of the design.
 
@@ -98,7 +99,7 @@ jupyter lab project_4_decision_trees.ipynb
 | `TA_GRADING_RUBRIC.md` / `.pdf`                      | 200-point rubric: checklists and model answers for all 19 voice questions, code tests, penalties, workflow, reference values |
 | `instructor/project_4_decision_trees_SOLUTION.ipynb` | executed solution; the master copy (`### BEGIN SOLUTION` / `### END SOLUTION` markers, cell tags)                            |
 | `instructor/make_student_version.py`                 | regenerates the student notebook from the solution (strips solutions and outputs)                                            |
-| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 10 coding questions (10 points each, 100 points)                                   |
+| `instructor/autograde.py`                            | executes a `submission.zip` and scores the 10 coding questions (10 points each, 100 points)                                  |
 | `instructor/INSTRUCTOR_NOTES.md`                     | design rationale, recorder internals, data notes, expected results, grading load, variations                                 |
 | `archive/`                                           | the previous Project 4 notebook and rubric, kept for reference                                                               |
 
