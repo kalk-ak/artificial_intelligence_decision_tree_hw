@@ -73,13 +73,27 @@ found; no points are attached, and `.gitignore` keeps `ai_logs/` out of the repo
   plays both. Opus at the browser default bitrate is ≈ 250–500 KB per minute, so a full submission is 5–10 MB.
 * Requirements: `anywidget>=0.9` and `ipywidgets>=8` (JupyterLab 4 / Notebook 7 need no extra extension), a browser tab served from
   `http://localhost` or `https://` (the microphone API is blocked on plain `http://` remote hosts, which matters for JupyterHub without TLS),
-  and microphone permission. VS Code's notebook webview may not grant microphone access; the notebook tells students to use the browser.
+  and microphone permission.
+* **VS Code.** VS Code does not give notebook outputs microphone access (microsoft/vscode#119127), so the browser widget can never record
+  there. Since recorder version 1.1, `record_answer` detects a VS Code kernel (`PYDEVD_IPYTHON_COMPATIBLE_DEBUGGING=1`, which the VS Code
+  Jupyter extension sets for every Python kernel, or any `VSCODE_*` variable) and shows a *kernel recorder* instead: ipywidgets buttons, with
+  the Python kernel opening the default microphone through `sounddevice` (PortAudio) and saving Ogg Vorbis through `soundfile`
+  (≈ 9–10 KB/s, so a 3-minute answer is under 2 MB). The take goes through the same `store_recording`, so manifest, hashes, `review.html`
+  and `build_submission()` are identical. A take whose peak level is below 0.003 is flagged as silent with OS-specific permission advice
+  (macOS: Privacy & Security > Microphone > Visual Studio Code; Windows: "Let desktop apps access your microphone"; Linux: default input /
+  PortAudio). Students can force either recorder with `RECORDER_MODE = "kernel"` / `"browser"` or `record_answer(qid, mode=...)`.
+  The kernel recorder needs a **local** kernel: in Codespaces or a remote SSH/WSL kernel the microphone belongs to another machine, so
+  students there should use the browser recorder or `register_external_recording`. On Linux, `pip install sounddevice` does not ship
+  PortAudio; `conda install -c conda-forge portaudio` or `apt install libportaudio2` fixes it (the recorder prints this if it is missing).
 * Fallbacks: `register_external_recording(qid, path, seconds)` attaches a file recorded with any app and flags it `external` in the
-  manifest and in `review.html`. Without `anywidget`, `record_answer` prints install instructions and the question text.
+  manifest and in `review.html`. If the chosen recorder's packages are missing, `record_answer` prints install instructions and the question text.
 * Re-running a recorder cell shows the existing take with a *Re-record* button, so *Restart & Run All* never erases audio.
 * `build_submission()` re-hashes every file, refuses to package if a hash does not match, warns on short takes, writes
   `recordings/review.html` (table with inline players for TAs) and zips notebook + recordings.
-* **Testing status.** The Python half (saving, manifest, re-record replacing files, external registration, status table, zip, review page,
+* **Testing status (kernel recorder, 2026-10-22).** Tested on Linux with a real microphone: detection, a 3-second take saved as Ogg and
+  decoded back, silence warning, auto-stop at `max_s`, one stream at a time, replay of an existing take, hash verification, and rendering
+  inside a real Jupyter kernel launched with VS Code's environment. Not yet clicked through inside the VS Code UI itself, or on macOS/Windows.
+* **Testing status (browser recorder).** The Python half (saving, manifest, re-record replacing files, external registration, status table, zip, review page,
   linter) is covered by an automated test. The JavaScript half was syntax-checked with Node and reviewed by hand, but **has not been
   exercised with a real microphone in this build** (no audio device in the build environment). Before release, open the student notebook in
   JupyterLab, run the Q00 cell, record a few seconds, and confirm `recordings/Q00.webm` appears and plays back. Try Safari once if your students

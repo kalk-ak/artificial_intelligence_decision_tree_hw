@@ -80,8 +80,9 @@ pip install -r requirements.txt
 jupyter lab project_4_decision_trees.ipynb
 ```
 
-- Open the notebook in a **browser** (Chrome, Edge, Firefox or Safari) at the default `http://localhost` address; the microphone API is
-  not available in some editor-embedded notebook views.
+- Open the notebook in a **browser** (Chrome, Edge, Firefox or Safari) at the default `http://localhost` address, or in **VS Code** with the
+  Jupyter extension. In VS Code the notebook records through Python (`sounddevice` + `soundfile`), because VS Code blocks the browser
+  microphone inside notebooks. On Linux, also install PortAudio (`conda install -c conda-forge portaudio`).
 - Part 0 downloads the data from Kaggle through `kagglehub` (6 MB, public, no Kaggle account needed) and keeps it in memory.
 - Work through the parts in order; expect about 17 hours in total, plus 2 to 3 hours if you attempt the extra credit. *Restart Kernel and
   Run All* should finish in roughly 5 to 10 minutes depending on your laptop; the slowest cell grows 25 bagged trees.
@@ -102,8 +103,8 @@ jupyter lab project_4_decision_trees.ipynb
 Grading: **250 points available, graded out of 200.** The 200 base points are 110 for code (100 autograded + 10 reviewed),
 70 for voice answers and 20 for process; the 50 extra-credit points (four autograded coding tasks and one voice question in Part 8)
 are a buffer that can make up for lost points or lift a score above 100%. The solution notebook scores 100/100 base and 40/40
-extra credit on the autograder and runs end to end in about five minutes. Before the first release, open the student notebook in a browser,
-run the Q00 cell and record a few seconds to confirm the microphone widget works on your setup.
+extra credit on the autograder and runs end to end in about five minutes. Before the first release, open the student notebook in a browser
+and in VS Code, run the Q00 cell and record a few seconds in each to confirm both recorders work on your setup.
 
 Edit the solution notebook, not the student one, and regenerate:
 
