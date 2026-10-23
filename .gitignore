@@ -26,5 +26,6 @@ instructor/derived_student.ipynb
 .idea/
 .DS_Store
 
-./instructor
-*/instructor.zip
+# Instructor-only material (solutions, autograder, notes) stays local, never on GitHub
+/instructor/
+/instructor.zip
