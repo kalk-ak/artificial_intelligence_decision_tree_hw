@@ -6,8 +6,7 @@
 
 Who worked on this
 
-Musab Hadque <mhaque5@jhu.edu>, instructor of record for EN.601.464: course content, the lecture material
-(the lecture dataset and tree that the self-checks reproduce) and approval of the design.
+Musab Hadque <mhaque5@jhu.edu>, instructor of record for EN.601.464/664
 
 Matthew Brownrigg <mbrown1@jh.edu>, teaching assistant: assignment design, review, testing and grading.
 
