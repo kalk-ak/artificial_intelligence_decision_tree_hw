@@ -8,7 +8,7 @@ Who worked on this
 Musab Hadque <mhaque5@jhu.edu>, instructor of record for EN.601.464: course content, the lecture material
 (the lecture dataset and tree that the self-checks reproduce) and approval of the design.
 
-Matthew Brownrigg <mbrownrigg@jhu.edu>, teaching assistant: assignment design, review, testing and grading.
+Matthew Brownrigg <mbrown1@jh.edu>, teaching assistant: assignment design, review, testing and grading.
 
 Kaleb Aklilu <kaklilu1@jh.edu>, teaching assistant: assignment design, requirements, grading policy, review.
 
@@ -18,7 +18,7 @@ October 2026.
 
 > **Why spoken answers?** Every explanation in this project is a **voice recording** made inside the notebook instead of a written
 > paragraph. The format was introduced to mitigate the use of AI tools to generate the entire homework in one shot: each spoken
-> prompt asks the student to explain, in their own words, what they built and *why their own code* broke, which is hard to outsource
+> prompt asks the student to explain, in their own words, what they built and _why their own code_ broke, which is hard to outsource
 > and easy for a TA to check against the notebook.
 >
 > **Using AI to learn is encouraged.** The notebook says so on its first page: students may use any AI tool to understand a concept,
@@ -84,8 +84,8 @@ jupyter lab project_4_decision_trees.ipynb
   Jupyter extension. In VS Code the notebook records through Python (`sounddevice` + `soundfile`), because VS Code blocks the browser
   microphone inside notebooks. On Linux, also install PortAudio (`conda install -c conda-forge portaudio`).
 - Part 0 downloads the data from Kaggle through `kagglehub` (6 MB, public, no Kaggle account needed) and keeps it in memory.
-- Work through the parts in order; expect about 17 hours in total, plus 2 to 3 hours if you attempt the extra credit. *Restart Kernel and
-  Run All* should finish in roughly 5 to 10 minutes depending on your laptop; the slowest cell grows 25 bagged trees.
+- Work through the parts in order; expect about 17 hours in total, plus 2 to 3 hours if you attempt the extra credit. _Restart Kernel and
+  Run All_ should finish in roughly 5 to 10 minutes depending on your laptop; the slowest cell grows 25 bagged trees.
 - Finish with Part 9: `lint_notebook_functions()`, `recording_status()`, `build_submission()`, then upload `submission.zip` to Gradescope.
 
 ## For instructors and TAs
